@@ -13,13 +13,30 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="헤더 파일\cache">
+      <UniqueIdentifier>{00b5bf26-f75a-456b-8b55-bb1583d57422}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\cache">
+      <UniqueIdentifier>{eeac6df5-71c0-4678-af7c-8a157995d7ff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="LruCache.h">
-      <Filter>헤더 파일</Filter>
-    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cache\Assert.h">
+      <Filter>헤더 파일\cache</Filter>
+    </ClInclude>
+    <ClInclude Include="cache\BruteforceLruCache.h">
+      <Filter>헤더 파일\cache</Filter>
+    </ClInclude>
+    <ClInclude Include="cache\ICacheHandle.h">
+      <Filter>헤더 파일\cache</Filter>
+    </ClInclude>
+    <ClInclude Include="cache\Policy.h">
+      <Filter>헤더 파일\cache</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,50 +1,23 @@
-#include "LruCache.h"
-#include <iostream>
-#include <memory>
+#include "cache/BruteforceLruCache.h"
+
+
+using TestCache = cache::BruteforceLruCache<int, int, policy::CheckInitPolicy, policy::StdMultiThreadPolicy<policy::CheckInitPolicy>>;
 
 
 int main(int argc, char** argv)
 {
-	std::unique_ptr<ICache<int, double>> pCache = std::make_unique<LruCache<int, double>>(3);
+	TestCache cache(10);
 
-	pCache->Put(1, 1.0);
-	pCache->Put(2, 2.0);
-	pCache->Put(3, 3.0);
-	pCache->Put(4, 4.0);
-	pCache->Put(5, 5.0);
-
-	for (int k = 0; k < 7; ++k)
-	{
-		std::cout << k << " : ";
-		if (pCache->Exists(k))
-		{
-			if (3 == k)
-			{
-				double& v = pCache->Get(k);
-				v = 6.0;
-			}
-			std::cout << pCache->Get(k) << std::endl;
-		}
-		else
-		{
-			std::cout << "not found" << std::endl;
-		}
-	}
-	std::cout << std::endl;
-	
-	pCache->Remove(3);
-	for (int k = 0; k < 7; ++k)
-	{
-		std::cout << k << " : ";
-		if (pCache->Exists(k))
-		{
-			std::cout << pCache->Get(k) << std::endl;
-		}
-		else
-		{
-			std::cout << "not found" << std::endl;
-		}
-	}
+	int _tmp = -1;
+	int a = 6;
+	cache.Put(8, 8);
+	cache.Put(7, 7);
+	cache.Put(9, 9);
+	cache.Put(5, 5);
+	cache.Get(7, _tmp);
+	cache.Put(1, 1);
+	cache.Put(2, 2);
+	cache.Remove(2);
 
 	return 0;
 }
