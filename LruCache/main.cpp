@@ -1,7 +1,8 @@
 #include "cache/BruteforceLruCache.h"
 
-
-using TestCache = cache::BruteforceLruCache<int, int, policy::CheckInitPolicy, policy::StdMultiThreadPolicy<policy::CheckInitPolicy>>;
+using CacheInitCheckPolicy = policy::CheckInitPolicy;
+using CacheThreadPolicy = policy::StdMultiThreadPolicy<policy::CheckInitPolicy>;
+using TestCache = cache::BruteforceLruCache<int, int, CacheInitCheckPolicy, CacheThreadPolicy>;
 
 
 int main(int argc, char** argv)
