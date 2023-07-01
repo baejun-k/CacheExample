@@ -7,7 +7,7 @@ std::unordered_map을 사용하는 이유는 캐시의 용량이 커졌을 때(l
 
 캐시의 용량은 저장된 데이터의 수로 할지 할당 메모리로 할지 선택할 수 있도록 item의 크기 계산자를 입력해줘야 함.
 - 참고
-  - [DefaultBruteforceLruCacheItemSizeCalc](https://github.com/baejun-k/CacheExample/blob/master/LruCache/cache/BruteforceLruCache.h#L25), 
+  - [DefaultBruteforceLruCacheItemSizeCalc](https://github.com/baejun-k/CacheExample/blob/master/LruCache/cache/BruteforceLruCache.h#L25)
   - [DefaultBruteforceLruCacheItemMemSizeCalc](https://github.com/baejun-k/CacheExample/blob/master/LruCache/cache/BruteforceLruCache.h#L34)
 
 메모리 크기를 둔 이유는 일 하다보니까 사용 메모리 제한을 둬야할 경우가 필요해서 추가 함.
