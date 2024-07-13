@@ -10,43 +10,6 @@ namespace policy
 {
 
 
-class NoCheckInitPolicy
-{
-public:
-	NoCheckInitPolicy() {}
-	~NoCheckInitPolicy() {}
-
-	void Init() {}
-	bool Check() const { return true; }
-
-	NoCheckInitPolicy& operator=(const NoCheckInitPolicy&) = delete;
-	NoCheckInitPolicy& operator=(NoCheckInitPolicy&&) noexcept = delete;
-};
-
-class CheckInitPolicy
-{ 
-public:
-	CheckInitPolicy()
-		: m_isInit(false)
-	{}
-	~CheckInitPolicy() {}
-
-	void Init() { m_isInit = true; }
-	bool Check() const
-	{ 
-		ASSERT(true == m_isInit, "Object is not initialized.");
-		return m_isInit;
-	}
-
-	CheckInitPolicy& operator=(const CheckInitPolicy&) = delete;
-	CheckInitPolicy& operator=(CheckInitPolicy&&) noexcept = delete;
-
-private:
-	bool m_isInit;
-};
-
-
-
 class SingleThreadPolicy
 {
 public:
@@ -69,23 +32,23 @@ public:
 	};
 };
 
-template<typename CheckPolicy>
+
 struct StdMultiThreadPolicy
 {
-protected:
-	CheckPolicy m_checkPolicy;
+private:
+	bool m_isInit;
 	std::mutex m_mutex;
 
 public:
 	StdMultiThreadPolicy()
-		: m_checkPolicy()
+		: m_isInit(false)
 		, m_mutex()
 	{
-		m_checkPolicy.Init();
+		m_isInit = true;
 	}
 	~StdMultiThreadPolicy()
 	{
-		m_checkPolicy.Check();
+		ASSERT(true == m_isInit, "MultiThreadPolicy is not initialized.");
 	}
 
 	class Lock;
@@ -95,24 +58,36 @@ public:
 	{
 	private:
 		StdMultiThreadPolicy& m_policy;
+		bool m_isLocked;
 
 	public:
 		Lock() = delete;
 		Lock(StdMultiThreadPolicy&&) = delete;
 		explicit Lock(StdMultiThreadPolicy& policy)
 			: m_policy(policy)
+			, m_isLocked(false)
 		{
-			if (m_policy.m_checkPolicy.Check())
+			ASSERT(true == m_policy.m_isInit, "MultiThreadPolicy is not initialized.");
+			if (false == m_policy.m_isInit)
 			{
-				m_policy.m_mutex.lock();
+				return;
 			}
+			m_policy.m_mutex.lock();
+			m_isLocked = true;
 		}
 		~Lock()
 		{
-			if (m_policy.m_checkPolicy.Check())
+			ASSERT(true == m_policy.m_isInit, "MultiThreadPolicy is not initialized.");
+			if (false == m_policy.m_isInit)
 			{
-				m_policy.m_mutex.unlock();
+				return;
 			}
+			else if (false == m_isLocked)
+			{
+				return;
+			}
+			m_policy.m_mutex.unlock();
+			m_isLocked = false;
 		}
 
 		Lock& operator=(StdMultiThreadPolicy&&) = delete;

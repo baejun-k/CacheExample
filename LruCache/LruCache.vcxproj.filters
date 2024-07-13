@@ -32,7 +32,7 @@
     <ClInclude Include="cache\BruteforceLruCache.h">
       <Filter>헤더 파일\cache</Filter>
     </ClInclude>
-    <ClInclude Include="cache\ICacheHandle.h">
+    <ClInclude Include="cache\ICache.h">
       <Filter>헤더 파일\cache</Filter>
     </ClInclude>
     <ClInclude Include="cache\Policy.h">
