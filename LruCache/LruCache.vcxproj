@@ -133,7 +133,6 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="cache\Assert.h" />
     <ClInclude Include="cache\BruteforceLruCache.h" />
     <ClInclude Include="cache\ICache.h" />
     <ClInclude Include="cache\Policy.h" />

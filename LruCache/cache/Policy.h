@@ -2,7 +2,7 @@
 #define __POLICY_HEADER__
 
 
-#include "Assert.h"
+#include "assert.h"
 #include <mutex>
 
 
@@ -48,7 +48,7 @@ public:
 	}
 	~StdMultiThreadPolicy()
 	{
-		ASSERT(true == m_isInit, "MultiThreadPolicy is not initialized.");
+		assert(true == m_isInit);
 	}
 
 	class Lock;
@@ -67,7 +67,7 @@ public:
 			: m_policy(policy)
 			, m_isLocked(false)
 		{
-			ASSERT(true == m_policy.m_isInit, "MultiThreadPolicy is not initialized.");
+			assert(true == m_policy.m_isInit);
 			if (false == m_policy.m_isInit)
 			{
 				return;
@@ -77,7 +77,7 @@ public:
 		}
 		~Lock()
 		{
-			ASSERT(true == m_policy.m_isInit, "MultiThreadPolicy is not initialized.");
+			assert(true == m_policy.m_isInit);
 			if (false == m_policy.m_isInit)
 			{
 				return;
